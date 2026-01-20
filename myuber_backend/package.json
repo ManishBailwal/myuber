@@ -1,0 +1,26 @@
+{
+  "name": "myuber_backend",
+  "version": "1.0.0",
+  "description": "bakend folder structure\r backend/\r  ├── src/\r  │     ├── api/\r  │     │     ├── auth.routes.js\r  │     │     ├── trip.routes.js\r  │     │     └── payment.routes.js\r  │     ├── graphql/\r  │     │     ├── schema.js\r  │     │     └── resolvers.js\r  │     ├── ws/\r  │     │     └── socket.js\r  │     ├── services/\r  │     ├── models/\r  │     ├── middlewares/\r  │     ├── utils/\r  │     └── index.js\r  ├── package.json\r  └── README.md",
+  "main": "index.js",
+  "scripts": {
+  "dev": "nodemon src/index.js",
+  "start": "node src/index.js"
+}
+,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^5.2.0",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "graphql": "^16.12.0",
+    "jsonwebtoken": "^9.0.3",
+    "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
