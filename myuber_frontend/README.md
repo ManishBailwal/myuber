@@ -25,6 +25,8 @@ src/
  └── main.jsx
 
 
+frontend is completely in react js
+
 Frontend State:
   useState   → UI only
   Zustand    → Shared UI state across components
