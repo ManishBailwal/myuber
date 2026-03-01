@@ -4,8 +4,8 @@ Frontend State:
   ReactQuery → Server State Manager in the UI layer (server state fetch & cache)
 
 Backend State:
-  Redis      → Fast cache + realtime coordination + geo + sessions
-  Database   → Permanent storage (PostgreSQL + PostGIS)
+ MongoDB → Permanent storage + 2dsphere geo queries (users, drivers, trips, payments)
+ Redis  → Caching + realtime coordination + rate limiting + sessions
 
 API Layer:
 
