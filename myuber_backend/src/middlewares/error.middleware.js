@@ -17,5 +17,5 @@ export default function errorMiddleware(err,req,res,next){
         message: err.message || 'Internal Server Error'
     })
 
-    next(err);
+    
 }

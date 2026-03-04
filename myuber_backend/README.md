@@ -18,6 +18,8 @@ backend/
  ├── package.json
  └── README.md
 
+ //api folder is playing role of routers folder
+
 
 One HTTP server → multiple communication interfaces.
 ┌──────────────────────────┐
@@ -61,3 +63,20 @@ Client → GraphQL → Resolver → Service → Model → DB
 
 WebSocket uses:
 Client → Socket → Service → Emit → Client     
+
+
+
+login api workflow -> 
+Client
+  ↓
+Authorization: Bearer TOKEN
+  ↓
+authenticate middleware
+  ↓
+authorize middleware
+  ↓
+controller
+  ↓
+service
+  ↓
+database
