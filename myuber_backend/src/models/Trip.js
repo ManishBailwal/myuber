@@ -97,3 +97,5 @@ tripSchema.index({rider: 1, status: 1})
 tripSchema.index({ driver: 1, status: 1 });
 
 export default mongoose.model("Trip", tripSchema);
+
+         
