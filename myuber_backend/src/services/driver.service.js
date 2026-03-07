@@ -47,3 +47,48 @@ export const driverStatusService = async (userId, status)=>{
     return driver;
 
 }
+
+export const driverLocationService = async (userId, coordinates)=>{
+
+    const driver = await Driver.findOneAndUpdate(
+
+        {user:userId},
+        {
+            currentLocation:{
+                type: "Point",
+                coordinates,
+            }
+        },
+        {new: true}
+
+    )
+
+    if(!driver){
+        error = new Error("Driver profile not found");
+        error.statusCode = 404;
+        return error;
+    }
+
+    return driver;
+
+}
+
+export const nearbyDriversService = async (lng, lat)=>{
+
+    const drivers = await Driver.find({
+        status: "online",
+        currentLocation:{
+            $near:{
+                $geometry:{
+                    type:"Point",
+                    coordinates:[Number(lng), Number(lat)]
+                },
+                $maxDistance:5000 //5km
+            }
+
+        }
+    })
+
+return drivers;
+
+}
