@@ -90,6 +90,20 @@ const tripSchema = new mongoose.Schema(
     }
 )
 
+//state machine
+const allowedTransitions = {
+    requested:["accepted", "cancelled"],
+    accepted:["arriving", "cancelled"],
+    arriving:["ongoing","cancelled"],
+    ongoing:["completed"],
+    completed:[],
+    cancelled:[],
+}
+
+// attach method to schema
+tripSchema.methods.canTransitionTo = function(nextStatus){
+    return allowedTransitions[this.status].includes(nextStatus)
+}
 
 tripSchema.index({createdAt: -1});
 tripSchema.index({pickupLocation: "2dsphere"})
