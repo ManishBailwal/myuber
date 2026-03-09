@@ -6,6 +6,7 @@ import express from 'express'
 import apiRouter from './api/index.js'
 import {ApolloServer} from '@apollo/server'
 import errorMiddleware from './middlewares/error.middleware.js';
+import { initSocketServer } from './ws/socket.server.js';
 
 import connectDB from './utils/db.js';
 
@@ -35,6 +36,7 @@ app.use('/api',apiRouter);
 
 
 //WebSocket Setup
+initSocketServer(httpServer);
 
 
  // 404 handler (after all routes)
