@@ -1,15 +1,26 @@
-import {BrowserRouter, useRoutes} from "react-router-dom";
-import routes from "./routes";
+// router.jsx
+import React from 'react'; // Add this just in case
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from '../pages/Login';
+import RiderDashboard from '../pages/RiderDashboard';
+import DriverDashboard from '../pages/DriverDashboard';
+import ProtectedRoute from './ProtectedRoute';
 
-const RouterContent = ()=>{
-
-    return useRoutes(routes);
-}
-
-const AppRouter = ()=>{
+export default function AppRouter() {
+  return (
     <BrowserRouter>
-        <RouterContent/>
-    </BrowserRouter>
-}
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<LoginPage />} />
 
-export default AppRouter;
+       {/* Protected Dashboard Views */}
+        <Route element={<ProtectedRoute/>}>
+        <Route path="rider-dashboard" element={<RiderDashboard/>} />
+        <Route path="driver-dashboard" element={<DriverDashboard/>}/>
+        </Route>
+
+
+      </Routes>
+    </BrowserRouter>
+  );
+}

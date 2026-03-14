@@ -19,7 +19,19 @@ export const initSocketServer = (httpServer)=>{
 
     io.on("connection", (socket)=>{
 
-        console.log("Socket Connected", socket.id);
+        //rider connects
+        socket.on(EVENTS.RIDER_CONNECTED, (riderId)=>{
+            registerRider(riderId,socket.id);
+            console.log("Rider Connected", riderId);
+        })
+
+
+        //driver connects
+        socket.on(EVENTS.DRIVER_CONNECTED, (driverId)=>{
+            registerDriver(driverId, socket.id);
+            console.log("Driver Connected", driverId);
+        })
+
 
     })
 

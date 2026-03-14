@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  /* Primary Button */
+  .btn-primary {
+    @apply bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition duration-200;
+  }
+
+  /* Danger Button */
+  .btn-danger {
+    @apply bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition duration-200;
+  }
+
+  /* Generic Card */
+  .card {
+    @apply bg-white shadow-md rounded-lg border border-gray-200 p-4;
+  }
+
+  /* Input Field */
+  .input {
+    @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  }
+
+  /* Dashboard Card */
+  .dashboard-card {
+    @apply bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition duration-200;
+  }
+
+  /* Trip Card (for ride request / active trip) */
+  .trip-card {
+    @apply bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition duration-200 flex flex-col gap-2;
+  }
+
+}

@@ -22,6 +22,7 @@ async function bootstrap(){
     const app = express();
     const httpServer = http.createServer(app);
 
+    app.set("trust proxy", 1); // important for Render / reverse proxies
 
     //global middlewares
 app.use(express.json());

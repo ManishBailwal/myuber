@@ -1,6 +1,9 @@
 
 import Trip from '../models/Trip.js'
 import Driver from '../models/Driver.js';
+import { getIo } from '../ws/socket.server.js';
+import { getDriverSocket, getRiderSocket } from '../ws/registry/socketRegistry.js';
+import { EVENTS } from '../ws/events/events.js';
 
 export const createTripService = async (riderId, data)=>{
 
@@ -11,6 +14,33 @@ export const createTripService = async (riderId, data)=>{
         pickupLocation,
         dropLocation,
         status: "requested"
+    })
+
+
+    //find nearby drivers within 5km 
+    const drivers = await Driver.find({
+      status:"online",
+      currentLocation:{
+        $near:{
+          $geometry:pickupLocation,
+          $maxDistance: 5000,
+        }
+      }
+    })
+
+    const io = getIo();
+
+    //notify drivers
+     drivers.forEach(driver => {
+      const socketId = getDriverSocket(driver.user.toString());
+
+      if(socketId){
+        io.to(socketId).emit(EVENTS.TRIP_REQUEST, {
+          tripId: trip._id,
+          pickupLocation,
+          dropLocation
+        })
+      }
     })
 
     return trip;
@@ -56,6 +86,20 @@ export const acceptTripService = async(tripId, driverId)=>{
   //update driver status
   driver.status = "busy";
   await driver.save();
+
+  const io = getIo();
+  const riderSocket = getRiderSocket(trip.rider.toString());
+  if(riderSocket){
+    io.to(riderSocket).emit(EVENTS.TRIP_ACCEPTED,{
+       tripId: trip._id,
+  driver: {
+    id: driver._id,
+    vehicleNumber: driver.vehicleNumber,
+    vehicleType: driver.vehicleType
+  }
+    })
+  }
+
 
   return trip;
 
