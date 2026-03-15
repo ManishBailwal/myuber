@@ -1,11 +1,23 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-export default function ProtectedRoute() {
-  // Logic to check authentication
-  const isAuthenticated = !!localStorage.getItem("token"); 
+export default function ProtectedRoute({allowedRoles}) {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
 
-  // If authenticated, render the child routes (Outlet)
-  // If not, redirect to login
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  // Authentication check
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // Authorization check
+  if(allowedRoles && !allowedRoles.includes(role)){
+
+    return <Navigate  to="/login" replace/>
+
+  }
+
+  return <Outlet />;
+
+  
 }

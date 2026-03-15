@@ -5,6 +5,8 @@ import LoginPage from '../pages/Login';
 import RiderDashboard from '../pages/RiderDashboard';
 import DriverDashboard from '../pages/DriverDashboard';
 import ProtectedRoute from './ProtectedRoute';
+import Signup from '../pages/Signup';
+import AdminDashboard from '../pages/AdminDashboard';
 
 export default function AppRouter() {
   return (
@@ -12,11 +14,30 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<Signup/>} />
+
+       
+         
+         <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
        {/* Protected Dashboard Views */}
-        <Route element={<ProtectedRoute/>}>
-        <Route path="rider-dashboard" element={<RiderDashboard/>} />
-        <Route path="driver-dashboard" element={<DriverDashboard/>}/>
+
+
+        {/* Rider Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["rider"]} />}>
+        
+           <Route path="/rider-dashboard" element={<RiderDashboard />} />
+        </Route>
+
+        {/* Driver Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["driver"]} />}>
+        <Route path="/driver-dashboard" element={<DriverDashboard />} />
+         
+        </Route>
+
+        {/* Admin Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Route>
 
 

@@ -6,12 +6,12 @@
 
   /* Primary Button */
   .btn-primary {
-    @apply bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition duration-200;
+    @apply bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 active:bg-blue-600 transition duration-200;
   }
 
   /* Danger Button */
   .btn-danger {
-    @apply bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition duration-200;
+    @apply bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 active:bg-red-600 transition duration-200;
   }
 
   /* Generic Card */
