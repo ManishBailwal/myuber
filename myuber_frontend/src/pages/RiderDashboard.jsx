@@ -1,16 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaMotorcycle, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 
 export default function RiderDashboard() {
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    try {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      setUser(storedUser);
+    } catch (err) {
+      console.error("Invalid user data");
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8">
 
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Rider Dashboard</h1>
+        <h1 className="text-2xl font-bold">
+          Welcome, {user?.name || "Rider"} 👋
+        </h1>
+
         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
           Request Ride
         </button>
+      </div>
+
+      {/* 👤 Profile Card */}
+      <div className="bg-white p-5 rounded-xl shadow mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+        
+        <div>
+          <h2 className="text-xl font-semibold">{user?.name}</h2>
+          <p className="text-gray-600">{user?.email}</p>
+          <p className="text-gray-600">{user?.phone}</p>
+        </div>
+
+        <span className="mt-3 md:mt-0 bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-medium">
+          {user?.role}
+        </span>
+
       </div>
 
       {/* Stats */}

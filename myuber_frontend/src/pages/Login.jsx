@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -16,9 +21,50 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    try {
+      setLoading(true);
+
+      const response = await fetch("http://localhost:4000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      console.log("Login successful:", data);
+
+      const user = data.data.user;
+      const token = data.data.token;
+
+      // ✅ Store auth data
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // ✅ Role-based redirect (clean way)
+      const roleRoutes = {
+        rider: "/rider-dashboard",
+        driver: "/driver-dashboard",
+        admin: "/admin-dashboard"
+      };
+
+      navigate(roleRoutes[user.role] || "/login");
+
+    } catch (error) {
+      console.error("Login failed:", error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,8 +94,8 @@ export default function Login() {
             onChange={handleChange}
           />
 
-          <Button type="submit">
-            Login
+          <Button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </Button>
 
         </form>

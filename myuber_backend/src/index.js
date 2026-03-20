@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import http from 'http';
 import express from 'express'
+import cors from 'cors'
 import apiRouter from './api/index.js'
 import {ApolloServer} from '@apollo/server'
 import errorMiddleware from './middlewares/error.middleware.js';
@@ -29,6 +30,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 await connectDB();
+
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    credentials: true,
+}))
 
 //REST setup
 app.use('/api',apiRouter);

@@ -18,7 +18,6 @@ export default function AppRouter() {
 
        
          
-         <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
        {/* Protected Dashboard Views */}
 
