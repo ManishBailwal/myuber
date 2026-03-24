@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaMotorcycle, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function RiderDashboard() {
 
@@ -23,9 +24,9 @@ export default function RiderDashboard() {
           Welcome, {user?.name || "Rider"} 👋
         </h1>
 
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+        <Link to="/request-ride" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
           Request Ride
-        </button>
+        </Link>
       </div>
 
       {/* 👤 Profile Card */}

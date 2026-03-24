@@ -9,6 +9,13 @@ export const createTripService = async (riderId, data)=>{
 
     const {pickupLocation, dropLocation} = data;
 
+    // ✅ basic validation
+  if (!pickupLocation || !dropLocation) {
+    const error = new Error("Pickup and drop locations are required");
+    error.statusCode = 400;
+    throw error;
+  }
+
     const trip = await Trip.create({
         rider: riderId,
         pickupLocation,

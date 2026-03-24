@@ -7,6 +7,7 @@ import DriverDashboard from '../pages/DriverDashboard';
 import ProtectedRoute from './ProtectedRoute';
 import Signup from '../pages/Signup';
 import AdminDashboard from '../pages/AdminDashboard';
+import RequestRide from '../pages/RequestRide';
 
 export default function AppRouter() {
   return (
@@ -26,6 +27,7 @@ export default function AppRouter() {
         <Route element={<ProtectedRoute allowedRoles={["rider"]} />}>
         
            <Route path="/rider-dashboard" element={<RiderDashboard />} />
+           <Route path="/request-ride" element={<RequestRide />} />
         </Route>
 
         {/* Driver Routes */}
